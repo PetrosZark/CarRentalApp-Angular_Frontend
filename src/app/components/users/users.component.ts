@@ -13,7 +13,12 @@ styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
     users: UserReadOnly[] = [];
-    filters = { searchQuery: '' }; // For filtering
+
+    filters = {
+        searchQuery: '',
+        filterType: 'username'  // Default to 'username'
+    };
+    
     currentPage = 0;
     totalPages = 0;
 
@@ -30,20 +35,21 @@ export class UsersComponent implements OnInit {
     }
 
     fetchUsers(): void {
-        const params: any = {
+    const params: any = {
         page: this.currentPage,
         size: 10,
-        searchQuery: this.filters.searchQuery || undefined, // Include search query if present
-        };
+        searchQuery: this.filters.searchQuery || undefined,
+        filterType: this.filters.filterType  // Pass filter type (username, email, vat)
+    };
 
-        this.manageUserService.getPaginatedUsers(params).subscribe({
+    this.manageUserService.getPaginatedUsers(params).subscribe({
         next: (response) => {
-            this.users = response.content;
+            this.users = response.data;
             this.totalPages = response.totalPages;
         },
         error: (err) => this.handleError(err.error?.description || 'Error fetching users'),
-        });
-    }
+    });
+}
 
 
     toggleStatus(username: string): void {
@@ -94,11 +100,24 @@ export class UsersComponent implements OnInit {
         this.currentPage = page;
         this.fetchUsers();
         }
-    }
+    }    
 
     applyFilters(): void {
-        this.currentPage = 0; // Reset to the first page when applying new filters
-        this.fetchUsers(); // Fetch users with the updated filters
+        const params: any = {
+            vat: this.filters.searchQuery,  // Pass VAT directly
+            page: this.currentPage,
+            size: 10
+        };
+    
+        this.manageUserService.getPaginatedUsers(params).subscribe({
+            next: (response) => {
+                console.log("API Response:", response);  // Debugging
+                this.users = response.data;  // Update to match API response
+                this.totalPages = response.totalPages;
+                this.currentPage = response.currentPage;
+            },
+            error: (err) => this.handleError(err.error?.description || 'Error fetching users'),
+        });
     }
 
 

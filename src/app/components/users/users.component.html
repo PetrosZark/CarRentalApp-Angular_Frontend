@@ -12,63 +12,63 @@
       <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
     </div>
   
-    <!-- Filter and Pagination Controls -->
-    <div class="row mb-3">
-        <div class="col-md-8">
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            placeholder="Search by username, email, etc."
-            [(ngModel)]="filters.searchQuery"
-          />
-        </div>
-        <div class="col-md-4 text-end">
-          <button class="btn btn-primary btn-sm" (click)="applyFilters()">Search</button>
-        </div>
-      </div>
+   <!-- Filter and Pagination Controls -->
+   <div class="row mb-3">
+    <div class="col-md-12">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by VAT..."
+        [(ngModel)]="filters.searchQuery"
+        (keyup.enter)="applyFilters()"
+      />
+    </div>
+    <div class="col-md-12 text-end mt-2">
+      <button class="btn btn-primary" (click)="applyFilters()">Search</button>
+    </div>
+  </div>
+
   
     <!-- Users Table -->
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Role</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            <button
-              class="btn btn-sm btn-warning me-2"
-              (click)="toggleStatus(user.username)"
-            >
-              Toggle Status
-            </button>
-            <button
-              class="btn btn-sm btn-info me-2"
-              (click)="changeRole(user.username)"
-            >
-              Change Role
-            </button>
-            <button
-              class="btn btn-sm btn-danger"
-              (click)="deleteUser(user.username)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>VAT</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.vat }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="toggleStatus(user.username)">
+            Toggle Status
+          </button>
+          <button class="btn btn-info btn-sm me-2" (click)="changeRole(user.username)">
+            Change Role
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   
-    <!-- Pagination Controls -->
     <nav>
       <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="currentPage === 0">

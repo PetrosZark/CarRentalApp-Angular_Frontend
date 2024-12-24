@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h2>Manage Brands</h2>
+  
+    <div *ngIf="showSuccessPopup" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+    </div>
+  
+    <div class="card p-3 mb-3">
+      <h5>Add New Brand</h5>
+      <form (ngSubmit)="addBrand()">
+        <div class="mb-3">
+          <label for="brandName" class="form-label">Brand Name</label>
+          <input
+            id="brandName"
+            type="text"
+            class="form-control"
+            [(ngModel)]="newBrand"
+            name="brandName"
+            placeholder="Enter brand name"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success btn-sm">Submit</button>
+      </form>
+    </div>
+  
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Brand</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let brand of brands">
+          <td>{{ brand.id }}</td>
+          <td>{{ brand.brand }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

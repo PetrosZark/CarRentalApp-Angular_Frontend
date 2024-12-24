@@ -1,0 +1,142 @@
+<div class="container">
+    <h2>Your Garage</h2>
+
+<div *ngIf="showSuccessPopup" class="alert alert-success alert-dismissible fade show">
+    {{ successMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="showSuccessPopup = false"></button>
+</div>
+
+<div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
+    {{ errorMessage }}
+    <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+</div>
+
+    <form (ngSubmit)="addCar()" class="mb-2">
+    <div class="row g-3">
+        <div class="col-md-2">
+        <label for="brand">Brand</label>
+        <select
+            [(ngModel)]="newCar.brandId"
+            id="brand"
+            name="brandId"
+            class="form-select"
+            required
+            (change)="onBrandChange()"
+        >
+            <option value="" disabled selected>Select a brand</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.brand }}</option>
+        </select>
+        </div>
+
+        <div class="col-md-2">
+        <label for="model">Model</label>
+        <select [(ngModel)]="newCar.carmodelId"
+        id="model" 
+        name="carmodelId" 
+        class="form-select" 
+        required 
+        [disabled]="!models.length"
+        >
+            <option value="" disabled selected>Select a model</option>
+            <option *ngFor="let model of models" [value]="model.id">{{ model.carmodel }}</option>
+        </select>
+        </div>
+        <div class="col-md-2">
+        <label for="licensePlate">License Plate</label>
+        <input id="licensePlate" [(ngModel)]="newCar.licensePlate" name="licensePlate" class="form-control" required />
+        </div>
+        <div class="col-md-2">
+        <label for="mileage">Mileage</label>
+        <input id="mileage" [(ngModel)]="newCar.mileage" name="mileage" class="form-control" required />
+        </div>
+        <div class="col-md-2">
+        <label for="city">City</label>
+        <select [(ngModel)]="newCar.cityId" id="city" name="cityId" class="form-select" required>
+            <option id="city" value="" disabled>Select a city</option>
+            <option *ngFor="let city of cities" [value]="city.id">{{ city.city }}</option>
+        </select>
+        </div>
+        <div class="col-md-2">
+        <label for="year">Year</label>
+        <input id="year" [(ngModel)]="newCar.year" name="year" class="form-control" required />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Add Car</button>
+    </form>
+
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>License Plate</th>
+        <th>Mileage</th>
+        <th>City</th>
+        <th>Year</th>
+        <th>Available</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of cars">
+        <td>{{ car.brand }}</td>
+        <td>{{ car.carmodel }}</td>
+        <td>{{ car.licensePlate }}</td>
+        <td>{{ car.mileage }}</td>
+        <td>{{ car.city }}</td>
+        <td>{{ car.year }}</td>
+        <td>{{ car.available ? 'Yes' : 'No' }}</td>
+        <td>
+            <button class="btn btn-warning btn-sm" (click)="selectedCar = car">Update</button>
+            <button class="btn btn-danger btn-sm ms-2" (click)="deleteCar(car.id)">Delete</button>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 0">
+                <button class="page-link" (click)="fetchUserCars(currentPage - 1)" [disabled]="currentPage === 0">
+                    Previous
+                </button>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i === currentPage">
+                <button class="page-link" (click)="fetchUserCars(i)">{{ i + 1 }}</button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage + 1 >= totalPages">
+                <button class="page-link" (click)="fetchUserCars(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages">
+                    Next
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <div *ngIf="selectedCar" >
+    <h3>Update Car</h3>
+    <form (ngSubmit)="updateCar()">
+        <div class="row g-3">
+        <div class="col-md-3">
+            <label for="mileage">Mileage</label>
+            <input id = "mileage" [(ngModel)]="selectedCar.mileage" name="mileage" class="form-control" required />
+        </div>
+        <div class="col-md-3">
+            <label for="city">City</label>
+            <select id="city" [(ngModel)]="selectedCar.city" name="city" class="form-select" required>
+                <option value="" disabled>Select a city</option>
+                <option *ngFor="let city of cities" [value]="city.city">{{ city.city }}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="available">Available</label>
+            <select id="available" [(ngModel)]="selectedCar.available" name="available" class="form-select" required>
+            <option [value]="true">Yes</option>
+            <option [value]="false">No</option>
+            </select>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Update Car</button>
+        <button type="button" class="btn btn-secondary mt-3 ms-2" (click)="selectedCar = null">Cancel</button>
+    </form>
+    </div>
+</div>

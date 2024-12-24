@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h2>Manage Cities</h2>
+  
+    <div *ngIf="showSuccessPopup" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+  
+    <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+    </div>
+  
+    <div class="card p-3 mb-3">
+      <h5>Add New City</h5>
+      <form (ngSubmit)="addCity()">
+        <div class="mb-3">
+          <label for="cityName" class="form-label">City Name</label>
+          <input
+            id="cityName"
+            type="text"
+            class="form-control"
+            [(ngModel)]="newCity"
+            name="cityName"
+            placeholder="Enter city name"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success btn-sm">Submit</button>
+      </form>
+    </div>
+  
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let city of cities">
+          <td>{{ city.id }}</td>
+          <td>{{ city.city }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

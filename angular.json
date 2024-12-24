@@ -1,121 +1,140 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
+"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+"version": 1,
+"newProjectRoot": "projects",
+"projects": {
     "carrentalapp": {
-      "projectType": "application",
-      "schematics": {
+    "projectType": "application",
+    "schematics": {
         "@schematics/angular:class": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:component": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:guard": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:interceptor": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:resolver": {
-          "skipTests": true
+        "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": true
+        "skipTests": true
         }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
+    },
+    "root": "",
+    "sourceRoot": "src",
+    "prefix": "app",
+    "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
+        "builder": "@angular-devkit/build-angular:application",
+        "options": {
             "outputPath": "dist/carrentalapp",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+            "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
+                "src/assets",
+                 "src/favicon.ico",
+            {
                 "glob": "**/*",
                 "input": "public"
-              }
+            }
             ],
             "styles": [
-              "src/styles.css"
+            "@angular/material/prebuilt-themes/indigo-pink.css",
+            "src/styles.css",
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": []
-          },
-          "configurations": {
+        },
+        "configurations": {
             "production": {
-              "budgets": [
+            "budgets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                "type": "initial",
+                "maximumWarning": "500kB",
+                "maximumError": "1MB"
                 },
                 {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                "type": "anyComponentStyle",
+                "maximumWarning": "2kB",
+                "maximumError": "4kB"
                 }
-              ],
-              "outputHashing": "all"
+            ],
+            "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+            "optimization": false,
+            "extractLicenses": false,
+            "sourceMap": true,
+            "fileReplacements": [
+                {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.development.ts"
+                }
+            ]
             }
-          },
-          "defaultConfiguration": "production"
+        },
+        "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
+        "builder": "@angular-devkit/build-angular:dev-server",
+        "configurations": {
             "production": {
-              "buildTarget": "carrentalapp:build:production"
+            "buildTarget": "carrentalapp:build:production"
             },
             "development": {
-              "buildTarget": "carrentalapp:build:development"
+            "buildTarget": "carrentalapp:build:development"
             }
-          },
-          "defaultConfiguration": "development"
+        },
+        "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+        "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
+        "builder": "@angular-devkit/build-angular:karma",
+        "options": {
             "polyfills": [
-              "zone.js",
-              "zone.js/testing"
+            "zone.js",
+            "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
+            "assets": [   
+                "src/assets",
+                "src/favicon.ico",       
+            {
                 "glob": "**/*",
                 "input": "public"
-              }
+            }
             ],
             "styles": [
-              "src/styles.css"
+            "@angular/material/prebuilt-themes/indigo-pink.css",
+            "src/styles.css",
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": []
-          }
         }
-      }
+        }
     }
-  }
+    }
+},
+"cli": {
+    "analytics": false
+}
 }

@@ -1,0 +1,20 @@
+<nav class="container-fluid navbar navbar-dark bg-primary justify-content-between">
+    <a class="navbar-brand ms-3" role="button" routerLink="home">
+        <img src="assets/images/logo.png" alt="CarRentalApp Logo" class="img-fluid mb-1" style="max-height: 25px;">
+    </a>
+    @if(user()){
+        <span class="me-3 d-flex gap-2 text-light align-items-center">
+            {{user()?.firstname}} {{user()?.lastname}}
+            <span role="button" class="cursor-pointer text-light" (click)="logout()">Logout</span>            
+            <mat-icon role="button" (click)="logout()">logout</mat-icon>
+        </span>
+
+    } @else {
+        <span class="me-3 d-flex gap-2 text-light align-items-center">
+            <span role="button" class="cursor-pointer text-light" routerLink="register">Register</span>      
+            <span role="button" class="cursor-pointer text-light" routerLink="login">Login</span>            
+            <mat-icon role="button" class="icon-link-hover" routerLink="login">login</mat-icon>
+        </span>
+    }
+    
+</nav>

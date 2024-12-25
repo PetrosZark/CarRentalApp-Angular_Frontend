@@ -1,8 +1,10 @@
 <div class="container mt-4">
     <h2>Car Models</h2>
 
+    <!-- Filter and Create Button Section -->
     <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
+        <!-- Dropdown to Filter Models by Brand -->
         <label for="brandFilter" class="form-label">Filter by Brand</label>
         <select
         id="brandFilter"
@@ -10,74 +12,83 @@
         [(ngModel)]="selectedBrand"
         (change)="filterByBrand()"
         >
-        <option value="" selected>All Brands</option>
-        <option *ngFor="let brand of brands" [value]="brand.brand">{{ brand.brand }}</option>
+            <option value="" selected>All Brands</option>
+            <option *ngFor="let brand of brands" [value]="brand.brand">{{ brand.brand }}</option>
         </select>
     </div>
-    <button class="btn btn-primary btn-sm" (click)="toggleCreateModelForm()">
-        Create Model
-    </button>
-    </div>
 
-    <div *ngIf="showSuccessPopup" class="alert alert-success">
-    {{ successMessage }}
-    </div>
-
-    <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
-    {{ errorMessage }}
-    <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
-    </div>
-
-
-    <div *ngIf="showCreateModelForm" class="card p-3 mb-3">
-    <h5>Create New Car Model</h5>
-    <form (ngSubmit)="createModel()">
-        <div class="mb-3">
-        <label for="brandSelect" class="form-label">Brand</label>
-        <select
-            id="brandSelect"
-            class="form-select"
-            [(ngModel)]="newModel.brandId"
-            name="brandId"
-            required
-        >
-            <option value="" selected disabled>Select a brand</option>
-            <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.brand }}</option>
-        </select>
-        </div>
-        <div class="mb-3">
-        <label for="modelName" class="form-label">Car Model Name</label>
-        <input
-            id="modelName"
-            type="text"
-            class="form-control"
-            [(ngModel)]="newModel.carmodel"
-            name="carmodel"
-            placeholder="Enter model name"
-            required
-        />
-        </div>
-        <button type="submit" class="btn btn-success btn-sm">Submit</button>
-        <button type="button" class="btn btn-secondary btn-sm ms-2" (click)="toggleCreateModelForm()">
-        Cancel
+    <!-- Button to Toggle Form for Creating New Models -->
+        <button class="btn btn-primary btn-sm" (click)="toggleCreateModelForm()">
+            Create Model
         </button>
-    </form>
     </div>
 
+    <!-- Success Message Popup -->
+    <div *ngIf="showSuccessPopup" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+
+    <!-- Error Message with Close Button -->
+    <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+    </div>
+
+    <!-- Form for Creating New Car Models (Toggled by Button) -->
+    <div *ngIf="showCreateModelForm" class="card p-3 mb-3">
+        <h5>Create New Car Model</h5>
+        <form (ngSubmit)="createModel()">
+
+            <!-- Select Brand for New Model -->
+            <div class="mb-3">
+                <label for="brandSelect" class="form-label">Brand</label>
+                <select
+                    id="brandSelect"
+                    class="form-select"
+                    [(ngModel)]="newModel.brandId"
+                    name="brandId"
+                    required
+                >
+                    <option value="" selected disabled>Select a brand</option>
+                    <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.brand }}</option>
+                </select>
+            </div>
+            
+            <!-- Input Field for Car Model Name -->
+            <div class="mb-3">
+                <label for="modelName" class="form-label">Car Model Name</label>
+                <input
+                    id="modelName"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="newModel.carmodel"
+                    name="carmodel"
+                    placeholder="Enter model name"
+                    required
+                />
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+            <button type="button" class="btn btn-secondary btn-sm ms-2" (click)="toggleCreateModelForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Table to Display Car Models -->
     <table class="table table-bordered table-striped mt-3">
-    <thead>
-        <tr>
-        <th>ID</th>
-        <th>Car Model</th>
-        <th>Brand</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let model of filteredCarModels">
-        <td>{{ model.id }}</td>
-        <td>{{ model.carmodel }}</td>
-        <td>{{ model.brand }}</td>
-        </tr>
-    </tbody>
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Car Model</th>
+            <th>Brand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let model of filteredCarModels">
+            <td>{{ model.id }}</td>
+            <td>{{ model.carmodel }}</td>
+            <td>{{ model.brand }}</td>
+            </tr>
+        </tbody>
     </table>
 </div>

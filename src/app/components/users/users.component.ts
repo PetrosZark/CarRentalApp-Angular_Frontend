@@ -13,6 +13,11 @@ styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
     users: UserReadOnly[] = [];
+    selectedUser: UserReadOnly | null = null;
+    showUserModal = false;
+    showRoleModal = false;
+    selectedRole = 'USER';
+    selectedUsername = '';
 
     filters = {
         searchQuery: '',
@@ -64,17 +69,29 @@ export class UsersComponent implements OnInit {
     }
 
     changeRole(username: string): void {
-        const role = prompt('Enter new role (ADMIN, USER):');
-        if (!role) return;
+        this.selectedUsername = username;
+        this.selectedRole = 'SIMPLE_USER';  
+        this.showRoleModal = true;
+    }
 
-        this.manageUserService.changeUserRole(username, role).subscribe({
-        next: (user) => {
-            this.successMessage = `User role updated: ${user.username} is now ${user.role}`;
-            this.showSuccessPopup = true;
-            this.fetchUsers();
-        },
-        error: (err) => this.handleError(err.error?.description || 'Error updating user role'),
+    confirmRoleChange(): void {
+        if (!this.selectedRole) return;
+    
+        this.manageUserService.changeUserRole(this.selectedUsername, this.selectedRole).subscribe({
+            next: (user) => {
+                this.successMessage = `User role updated: ${user.username} is now ${user.role}`;
+                this.showSuccessPopup = true;
+                this.fetchUsers();
+                this.closeRoleModal();
+            },
+            error: (err) => this.handleError(err.error?.description || 'Error updating user role'),
         });
+    }
+
+    closeRoleModal(): void {
+        this.showRoleModal = false;
+        this.selectedRole = '';
+        this.selectedUsername = '';
     }
 
     deleteUser(username: string): void {
@@ -88,6 +105,11 @@ export class UsersComponent implements OnInit {
         },
         error: (err) => this.handleError(err.error?.description || 'Error deleting user'),
         });
+    }
+
+    showUserInfo(user: UserReadOnly): void {
+        this.selectedUser = user;
+        this.showUserModal = true;
     }
 
     get totalPagesArray(): number[] {

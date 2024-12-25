@@ -37,11 +37,9 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th>VAT</th>
-        <th>Phone</th>
         <th>Status</th>
         <th>Role</th>
-        <th>Actions</th>
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -50,20 +48,13 @@
         <td>{{ user.firstname }}</td>
         <td>{{ user.lastname }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.vat }}</td>
-        <td>{{ user.phone }}</td>
         <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
         <td>{{ user.role }}</td>
-        <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="toggleStatus(user.username)">
-            Toggle Status
-          </button>
-          <button class="btn btn-info btn-sm me-2" (click)="changeRole(user.username)">
-            Change Role
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)">
-            Delete
-          </button>
+        <td class="text-center">
+          <button class="btn btn-primary btn-sm me-3" (click)="showUserInfo(user)">Info</button>
+          <button class="btn btn-info btn-sm me-3" (click)="changeRole(user.username)">Change Role</button>
+          <button class="btn btn-warning btn-sm me-3" (click)="toggleStatus(user.username)">Toggle Status</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -86,5 +77,54 @@
         </li>
       </ul>
     </nav>
+
+    <div class="modal fade show" style="background: rgba(0, 0, 0, 0.7);" [ngClass]="{ 'd-block': showRoleModal }" tabindex="-1" role="dialog" *ngIf="showRoleModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Change User Role</h5>
+            <button type="button" class="btn-close" style="filter: invert(1);" (click)="closeRoleModal()"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Update Role for:</strong> {{ selectedUsername }}</p>
+            <label for="role">Select New Role</label>
+            <select id="role" [(ngModel)]="selectedRole" class="form-select">
+              <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+              <option value="SIMPLE_USER">SIMPLE_USER</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" (click)="confirmRoleChange()">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="modal fade show" style="background: rgba(0, 0, 0, 0.7);" [ngClass]="{ 'd-block': showUserModal }" tabindex="-1" role="dialog" *ngIf="selectedUser">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">User Info: {{ selectedUser.username }}</h5>
+            <button type="button" class="btn-close" style="filter: invert(1);" (click)="showUserModal = false"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>First Name:</strong> {{ selectedUser.firstname }}</p>
+            <p><strong>Last Name:</strong> {{ selectedUser.lastname }}</p>
+            <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+            <p><strong>Phone:</strong> {{ selectedUser.phone }}</p>
+            <p><strong>VAT:</strong> {{ selectedUser.vat }}</p>
+            <p><strong>Date of Birth:</strong> {{ selectedUser.dateOfBirth | date:'dd-MM-yyyy' }}</p>
+            <p><strong>gender:</strong> {{ selectedUser.gender }}</p>
+            <p><strong>Created At:</strong> {{ selectedUser.createdAt }}</p>
+            <p><strong>Updated At:</strong> {{ selectedUser.updatedAt }}</p>
+            <p><strong>Status:</strong> {{ selectedUser.isActive ? 'Active' : 'Inactive' }}</p>
+            <p><strong>Role:</strong> {{ selectedUser.role }}</p>
+          </div>
+          <div class="modal-footer footer bg-primary" style="min-height: 50px;">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   

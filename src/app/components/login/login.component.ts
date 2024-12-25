@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Credentials } from '../../shared/interfaces/user';
 import { UserService } from '../../shared/services/user.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'app-login',
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
 		ReactiveFormsModule, 
 		MatButtonModule,
 		MatInputModule,
-		MatFormFieldModule
+		MatFormFieldModule,
+		CommonModule
 	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css'
@@ -23,7 +25,10 @@ import { Router } from '@angular/router';
 
 	userService = inject(UserService);
 	router = inject(Router);
-
+	errorMessage: string = '';
+	successMessage: string = '';
+	showErrorPopup = false;
+	showSuccessPopup = false;
 	invalidLogin = false;
 
 	loginForm = new FormGroup({
@@ -43,19 +48,34 @@ import { Router } from '@angular/router';
 				localStorage.setItem('authToken', token);
 				localStorage.setItem('loggedInUser', JSON.stringify({ firstname, lastname, role }));
 
-
 				this.userService.user.set({
 					firstname: response.firstname,
 					lastname: response.lastname,
 					role: response.role
 				})
-				this.router.navigate([`home`])
+				this.router.navigate([`home`]);
+				this.handleSuccess('Login successful');
+
 			},
 			error: (error) => {
 				console.log('Login error', error);
-				this.invalidLogin = true;
-			}
-
+				const errorMessage = error.error?.description || error.error || 'Invalid username or password.';
+				this.handleError(errorMessage);
+			}	
 		})
+	}
+
+	handleError(message: string): void {
+		this.errorMessage = message;
+		this.invalidLogin = true;
+		this.showErrorPopup = true;
+		setTimeout(() => (this.showErrorPopup = false), 10000);  // Auto-hide after 10 seconds
+	}
+
+	// Success handling method (optional)
+	handleSuccess(message: string): void {
+		this.successMessage = message;
+		this.showSuccessPopup = true;
+		setTimeout(() => (this.showSuccessPopup = false), 5000);  // Auto-hide after 5 seconds
 	}
 }

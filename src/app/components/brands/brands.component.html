@@ -1,21 +1,29 @@
-<div class="container mt-4">
+    <div class="container mt-4">
     <h2>Manage Brands</h2>
-  
+
+    <!-- Success Popup Notification -->
     <div *ngIf="showSuccessPopup" class="alert alert-success">
-      {{ successMessage }}
+        {{ successMessage }}
     </div>
 
+    <!-- Error Popup Notification -->
     <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
-      {{ errorMessage }}
-      <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+        {{ errorMessage }}
+        <!-- Close Button for Error Popup -->
+        <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
     </div>
-  
+
+    <!-- Form to Add New Brand -->
     <div class="card p-3 mb-3">
-      <h5>Add New Brand</h5>
-      <form (ngSubmit)="addBrand()">
+        <h5>Add New Brand</h5>
+
+        <!-- Form Submit Event Triggers addBrand() Method -->
+        <form (ngSubmit)="addBrand()">
         <div class="mb-3">
-          <label for="brandName" class="form-label">Brand Name</label>
-          <input
+            <label for="brandName" class="form-label">Brand Name</label>
+
+            <!-- Two-way Data Binding with [(ngModel)] to Update 'newBrand' Property -->
+            <input
             id="brandName"
             type="text"
             class="form-control"
@@ -23,25 +31,27 @@
             name="brandName"
             placeholder="Enter brand name"
             required
-          />
+            />
         </div>
         <button type="submit" class="btn btn-success btn-sm">Submit</button>
-      </form>
+        </form>
     </div>
-  
+
+    <!-- Table to Display Existing Brands -->
     <table class="table table-bordered table-striped mt-3">
-      <thead>
+        <thead>
         <tr>
-          <th>ID</th>
-          <th>Brand</th>
+            <th>ID</th>
+            <th>Brand</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+
+        <!-- Loop Through 'brands' Array and Render Each Brand -->
+        <tbody>
         <tr *ngFor="let brand of brands">
-          <td>{{ brand.id }}</td>
-          <td>{{ brand.brand }}</td>
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.brand }}</td>
         </tr>
-      </tbody>
+        </tbody>
     </table>
-  </div>
-  
+    </div>

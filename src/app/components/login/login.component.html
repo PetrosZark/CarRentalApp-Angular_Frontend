@@ -18,10 +18,15 @@
                 [disabled]="loginForm.invalid">
                 Login
             </button>
-            @if (invalidLogin) {
-                <div class="alert alert-danger mt-2">
-                    <strong>Error:</strong> Invalid username or password.
-                </div>
-            }
+            
+             <!-- Success Popup -->
+        <div *ngIf="showSuccessPopup" class="alert alert-success mt-2">
+            <strong>Success:</strong> {{ successMessage }}
+        </div>
+
+        <!-- Error Popup -->
+        <div *ngIf="showErrorPopup" class="alert alert-danger mt-2">
+            <strong>Error:</strong> {{ errorMessage }}
+        </div>
     </form>
 

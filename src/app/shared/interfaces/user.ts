@@ -1,6 +1,5 @@
 export interface UserReadOnly {
     id: string,
-    uuid:string,
     username: string,
     firstname: string,
     lastname: string,
@@ -8,6 +7,7 @@ export interface UserReadOnly {
     email: string,
     phone : string,
     dateOfBirth: string,
+    gender: string,
     isActive: boolean,
     createdAt: string,
     updatedAt: string,

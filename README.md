@@ -49,7 +49,7 @@ src/
 ├── index.html                    # Main entry point
 ├── main.ts                       # Bootstrap logic
 └── styles.css                    # Global styles
-
+```
 
 ## 🌐 Deployment
 

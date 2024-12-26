@@ -1,26 +1,29 @@
 <div class="container-fluid p-0 m-0">
+    <!-- Full-height, zero-padding container -->
     <div class="d-flex flex-column vh-100 ">
-        <!-- Navbar -->
+        
+        <!-- Navbar (Stays at the top across pages) -->
         <app-navbar></app-navbar>        
 
-        <!-- Main Content Area -->
+        <!-- Main Content Area (Expands to take available space) -->
         <div class="d-flex flex-grow-1">
 
 
-        @if (isAuthenticated()) {
+        <!-- Sidebar (Conditional rendering if user is authenticated) -->
+            @if (isAuthenticated()) {
             <div class="sidebar col-2 bg-light p-2" style="min-width: 100px;">
+                <!-- Sidebar Menu Component -->
                 <app-side-bar-menu></app-side-bar-menu>
             </div>
-        }
-        
+        }       
 
-            <!-- Main Content -->
+            <!-- Main Content (Dynamic, based on the active route) -->
             <div class="flex-grow-1 p-2 w-100">
                 <router-outlet></router-outlet>
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer (Stays at the bottom of the page) -->
         <app-footer class="mt-auto"></app-footer>
     </div>
 </div>

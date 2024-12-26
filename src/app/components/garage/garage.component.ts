@@ -207,10 +207,10 @@ export class GarageComponent implements OnInit {
             const selectedBrandName = this.brands.find((b) => b.id.toString() === this.newCar.brandId)?.brand;
     
             if (selectedBrandName) {
-                    this.models = this.allModels.filter((model) => model.brand === selectedBrandName);
-                } else {
-                    this.models = [];
-                }
+                this.models = this.allModels.filter((model) => model.brand === selectedBrandName);
+            } else {
+                this.models = [];
+            }
         }
     }
 

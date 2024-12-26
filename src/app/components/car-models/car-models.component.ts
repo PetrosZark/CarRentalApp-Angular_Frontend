@@ -46,10 +46,10 @@ export class CarModelsComponent implements OnInit {
         this.fetchBrands();
     }
 
-  /**
-   * Fetches all car models from the backend.
-   * Populates both carModels and filteredCarModels arrays.
-   */
+   /**
+    * Fetches all car models from the backend.
+    * Populates both carModels and filteredCarModels arrays.
+    */
     fetchCarModels(): void {
         this.carModelService.getCarModels().subscribe({
         next: (models) => {
@@ -60,9 +60,9 @@ export class CarModelsComponent implements OnInit {
         });
     }
 
-  /**
-   * Fetches the list of available brands from the backend.
-   */
+    /**
+     * Fetches the list of available brands from the backend.
+     */
     fetchBrands(): void {
         this.carModelService.getBrands().subscribe({
         next: (brands) => {
@@ -72,10 +72,10 @@ export class CarModelsComponent implements OnInit {
         });
     }
 
-  /**
-   * Filters car models by the selected brand.
-   * If no brand is selected, show all car models.
-   */
+    /**
+     * Filters car models by the selected brand.
+     * If no brand is selected, show all car models.
+     */
     filterByBrand(): void {
         if (this.selectedBrand) {
         this.filteredCarModels = this.carModels.filter(
@@ -86,10 +86,10 @@ export class CarModelsComponent implements OnInit {
         }
     }
 
-  /**
-   * Toggles the visibility of the create model form.
-   * Resets the form when closed.
-   */
+    /**
+     * Toggles the visibility of the create model form.
+     * Resets the form when closed.
+     */
     toggleCreateModelForm(): void {
         this.showCreateModelForm = !this.showCreateModelForm;
         if (!this.showCreateModelForm) {
@@ -97,10 +97,10 @@ export class CarModelsComponent implements OnInit {
         }
     }
 
-  /**
-   * Handles the submission of the create model form.
-   * Validates input and sends the payload to the backend.
-   */
+    /**
+     * Handles the submission of the create model form.
+     * Validates input and sends the payload to the backend.
+     */
     createModel(): void {
         // Basic validation to ensure brand and model name are provided
         if (this.newModel.brandId === null || !this.newModel.carmodel.trim()) {
@@ -135,10 +135,10 @@ export class CarModelsComponent implements OnInit {
         });
     }
 
-  /**
-   * Handles errors by displaying a popup with the error message.
-   * Auto-hides after 10 seconds.
-   */
+    /**
+     * Handles errors by displaying a popup with the error message.
+     * Auto-hides after 10 seconds.
+     */
     handleError(message: string): void {
         this.errorMessage = message;
         this.showErrorPopup = true;
@@ -146,9 +146,9 @@ export class CarModelsComponent implements OnInit {
         setTimeout(() => (this.showErrorPopup = false), 10000); 
     }
 
-  /**
-   * Resets the create model form to its initial state.
-   */
+    /**
+     * Resets the create model form to its initial state.
+     */
     resetCreateModelForm(): void {
         this.newModel = { brandId: null, carmodel: '' };
     }

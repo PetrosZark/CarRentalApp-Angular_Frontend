@@ -1,93 +1,106 @@
 <div class="container">
-<h2>Search Cars</h2>
+    <h2>Search Cars</h2>
 
-<div class="row mb-4">
-    <div class="col-md-6">
-    <label for="brand-select" class="form-label">Brand</label>
-    <select
-        id="brand-select"
-        class="form-select"
-        [(ngModel)]="selectedBrand"
-    >
-        <option value="" disabled >Select a brand</option>
-        <option *ngFor="let brand of brands" [value]="brand.brand">{{ brand.brand }}</option>
-    </select>
+    <!-- Dropdowns for filtering cars by brand and city -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+        <label for="brand-select" class="form-label">Brand</label>
+            <select
+                id="brand-select"
+                class="form-select"
+                [(ngModel)]="selectedBrand"
+            >
+                <option value="" disabled >Select a brand</option>
+                <option *ngFor="let brand of brands" [value]="brand.brand">{{ brand.brand }}</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="city-select" class="form-label">City</label>
+            <select
+                id="city-select"
+                class="form-select"
+                [(ngModel)]="selectedCity"
+            >
+                <option value="" disabled>Select a city</option>
+                <option *ngFor="let city of cities" [value]="city.city">{{ city.city }}</option>
+            </select>
+        </div>
     </div>
 
-    <div class="col-md-6">
-    <label for="city-select" class="form-label">City</label>
-    <select
-        id="city-select"
-        class="form-select"
-        [(ngModel)]="selectedCity"
-    >
-        <option value="" disabled>Select a city</option>
-        <option *ngFor="let city of cities" [value]="city.city">{{ city.city }}</option>
-    </select>
-    </div>
+    <!-- Button to trigger filter logic -->
+    <button class="btn btn-primary mb-4" (click)="applyFilters()">Apply Filters</button>
+
+    <!-- Table displaying filtered car results -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>License Plate</th>
+                <th>Mileage</th>
+                <th>City</th>
+                <th>Year</th>
+                <th class="text-center">Actions</th> <!-- Center the header as well -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Render each car as a row with action buttons -->
+            <tr *ngFor="let car of cars">
+                <td>{{ car.brand }}</td>
+                <td>{{ car.carmodel }}</td>
+                <td>{{ car.licensePlate }}</td>
+                <td>{{ car.mileage }}</td>
+                <td>{{ car.city }}</td>
+                <td>{{ car.year }}</td>
+                <td class="text-center">
+                    <button class="btn btn-success btn-sm" (click)="contactOwner(car)">Contact Owner</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination for car listings -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 0">
+                <button class="page-link" (click)="goToPage(currentPage - 1)">Previous</button>
+            </li>
+            <!-- Generate pagination links dynamically based on total pages -->
+            <li
+                class="page-item"
+                *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="i === currentPage"
+            >
+                <button class="page-link" (click)="goToPage(i)">{{ i + 1 }}</button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage + 1 >= totalPages">
+                <button class="page-link" (click)="goToPage(currentPage + 1)">Next</button>
+            </li>
+        </ul>
+    </nav>
 </div>
 
-<button class="btn btn-primary mb-4" (click)="applyFilters()">Apply Filters</button>
+<!-- Modal to display selected car owner's contact information -->
+<div class="modal fade show" 
+     style="background: rgba(0, 0, 0, 0.7);" 
+     [ngClass]="{ 'd-block': selectedCar }" 
+     tabindex="-1" 
+     role="dialog" 
+     *ngIf="selectedCar">
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th>Brand</th>
-        <th>Model</th>
-        <th>License Plate</th>
-        <th>Mileage</th>
-        <th>City</th>
-        <th>Year</th>
-        <th class="text-center">Actions</th> <!-- Center the header as well -->
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let car of cars">
-        <td>{{ car.brand }}</td>
-        <td>{{ car.carmodel }}</td>
-        <td>{{ car.licensePlate }}</td>
-        <td>{{ car.mileage }}</td>
-        <td>{{ car.city }}</td>
-        <td>{{ car.year }}</td>
-        <td class="text-center">
-        <button class="btn btn-success btn-sm" (click)="contactOwner(car)">Contact Owner</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<nav aria-label="Page navigation">
-<ul class="pagination justify-content-center">
-    <li class="page-item" [class.disabled]="currentPage === 0">
-        <button class="page-link" (click)="goToPage(currentPage - 1)">Previous</button>
-      </li>
-      <li
-        class="page-item"
-        *ngFor="let page of [].constructor(totalPages); let i = index"
-        [class.active]="i === currentPage"
-      >
-        <button class="page-link" (click)="goToPage(i)">{{ i + 1 }}</button>
-      </li>
-      <li class="page-item" [class.disabled]="currentPage + 1 >= totalPages">
-        <button class="page-link" (click)="goToPage(currentPage + 1)">Next</button>
-      </li>
-</ul>
-</nav>
-</div>
-
-<div class="modal fade show" style="background: rgba(0, 0, 0, 0.7);" [ngClass]="{ 'd-block': selectedCar }" tabindex="-1" role="dialog" *ngIf="selectedCar">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title">Contact Owner</h5>
-          <button type="button" class="btn-close" style="filter: invert(1);" (click)="closePopup()"></button>
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Contact Owner</h5>
+                <!-- Close button for modal -->
+                <button type="button" class="btn-close" style="filter: invert(1);" (click)="closePopup()"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Phone:</strong> {{ selectedCar.userPhone || 'Not available' }}</p>
+                <p><strong>Email:</strong> {{ selectedCar.userEmail || 'Not available' }}</p>
+            </div>
+            <div class="modal-footer bg-primary" style="min-height: 50px;"></div>
         </div>
-        <div class="modal-body">
-          <p><strong>Phone:</strong> {{ selectedCar.userPhone || 'Not available' }}</p>
-          <p><strong>Email:</strong> {{ selectedCar.userEmail || 'Not available' }}</p>
-        </div>
-        <div class="modal-footer bg-primary" style="min-height: 50px;">
-        </div>
-      </div>
     </div>
-  </div>
+</div>

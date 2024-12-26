@@ -1,6 +1,7 @@
 <h5 class="text-center">User Login</h5>
 
-<div class="d-flex justify-content-center mt-2" style="height: 75vh;">    
+<div class="d-flex justify-content-center mt-2" style="height: 75vh;">
+    <!-- Reactive form with Angular binding and submission handling -->
     <form [formGroup]="loginForm" class="d-flex flex-column w-50" (ngSubmit)="onSubmit()">
         <mat-form-field>
             <mat-label for="username">Username</mat-label>
@@ -11,20 +12,22 @@
             <mat-label for="password">Password</mat-label>
             <input matInput type="password" formControlName="password">
         </mat-form-field>
+        
+        <!-- Button is disabled if form is invalid (reactive form validation) -->
         <button 
-                mat-flat-button 
-                color="primary" 
-                type="submit" 
-                [disabled]="loginForm.invalid">
-                Login
-            </button>
+            mat-flat-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="loginForm.invalid">
+            Login
+        </button>
             
-             <!-- Success Popup -->
+        <!-- Conditional success message, shown if form submission is successful -->     
         <div *ngIf="showSuccessPopup" class="alert alert-success mt-2">
             <strong>Success:</strong> {{ successMessage }}
         </div>
 
-        <!-- Error Popup -->
+        <!-- Conditional error message for failed login attempts -->
         <div *ngIf="showErrorPopup" class="alert alert-danger mt-2">
             <strong>Error:</strong> {{ errorMessage }}
         </div>

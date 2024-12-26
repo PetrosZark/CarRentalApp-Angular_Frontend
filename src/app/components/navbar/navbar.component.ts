@@ -12,11 +12,19 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class NavbarComponent {
 
+    // Inject UserService to manage user state and handle authentication
     userService = inject(UserService);
+    
+    // Reference to the current user observable or state
     user = this.userService.user
 
-logout(){
+
+    /**
+     * Calls UserService to log out the current user.
+     * Typically clears user session and redirects to login page.
+     */
+    logout(){
     this.userService.logoutUser()
-}
+    }
 
 }

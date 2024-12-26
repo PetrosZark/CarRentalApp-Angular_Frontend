@@ -69,9 +69,9 @@ export class BrandsComponent implements OnInit {
                 setTimeout(() => (this.showSuccessPopup = false), 10000);
             },
             error: (err) => {
-            this.handleError(err.error?.description || 'Error creating car model.');
-        },
-    });
+                this.handleError(err.error?.description || 'Error creating car model.');
+            },
+        });
     }
 
     /**

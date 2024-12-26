@@ -10,8 +10,13 @@ import { Router } from '@angular/router';
 })
 export class ManageEntitiesComponent {
 
+    // Inject Router to enable programmatic navigation
     router = inject(Router);
 
+    /**
+     * Navigates to the specified route when a button is clicked.
+     * @param route - Path to navigate to (e.g., '/users', '/brands').
+     */
     navigateTo(route: string): void {
         this.router.navigate([route]);
     }

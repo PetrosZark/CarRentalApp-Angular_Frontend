@@ -1,130 +1,142 @@
 <div class="container mt-4">
     <h2>Manage Users</h2>
   
-    <!-- Success and Error Popups -->
+    <!-- Success Popup - Shows after successful operations -->
     <div *ngIf="showSuccessPopup" class="alert alert-success alert-dismissible fade show">
-      {{ successMessage }}
-      <button type="button" class="btn-close" aria-label="Close" (click)="showSuccessPopup = false"></button>
+        {{ successMessage }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="showSuccessPopup = false"></button>
     </div>
   
+    <!-- Error Popup - Shows on operation failure -->
     <div *ngIf="showErrorPopup" class="alert alert-danger alert-dismissible fade show">
-      {{ errorMessage }}
-      <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
+        {{ errorMessage }}
+         <button type="button" class="btn-close" aria-label="Close" (click)="showErrorPopup = false"></button>
     </div>
   
-   <!-- Filter and Pagination Controls -->
+   <!-- Search Bar for VAT Filtering -->
    <div class="row mb-3">
-    <div class="col-md-12">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by VAT..."
-        [(ngModel)]="filters.searchQuery"
-        (keyup.enter)="applyFilters()"
-      />
+        <div class="col-md-12">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search by VAT..."
+                [(ngModel)]="filters.searchQuery"
+                (keyup.enter)="applyFilters()"
+            />
+        </div>
+        <div class="col-md-12 text-end mt-2">
+            <button class="btn btn-primary" (click)="applyFilters()">Search</button>
+        </div>
     </div>
-    <div class="col-md-12 text-end mt-2">
-      <button class="btn btn-primary" (click)="applyFilters()">Search</button>
-    </div>
-  </div>
 
   
     <!-- Users Table -->
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Role</th>
-        <th class="text-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.username }}</td>
-        <td>{{ user.firstname }}</td>
-        <td>{{ user.lastname }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
-        <td>{{ user.role }}</td>
-        <td class="text-center">
-          <button class="btn btn-primary btn-sm me-3" (click)="showUserInfo(user)">Info</button>
-          <button class="btn btn-info btn-sm me-3" (click)="changeRole(user.username)">Change Role</button>
-          <button class="btn btn-warning btn-sm me-3" (click)="toggleStatus(user.username)">Toggle Status</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamically generate table rows for each user -->
+            <tr *ngFor="let user of users">
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
+                <td>{{ user.role }}</td>
+                <td class="text-center">
+                    <button class="btn btn-primary btn-sm me-3" (click)="showUserInfo(user)">Info</button>
+                    <button class="btn btn-info btn-sm me-3" (click)="changeRole(user.username)">Change Role</button>
+                    <button class="btn btn-warning btn-sm me-3" (click)="toggleStatus(user.username)">Toggle Status</button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
   
+    <!-- Pagination Controls -->
     <nav>
-      <ul class="pagination justify-content-center">
-        <li class="page-item" [class.disabled]="currentPage === 0">
-          <button class="page-link" (click)="goToPage(currentPage - 1)">Previous</button>
-        </li>
-        <li
-          class="page-item"
-          *ngFor="let page of totalPagesArray"
-          [class.active]="page === currentPage"
-        >
-          <button class="page-link" (click)="goToPage(page)">{{ page + 1 }}</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
-          <button class="page-link" (click)="goToPage(currentPage + 1)">Next</button>
-        </li>
-      </ul>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 0">
+                <button class="page-link" (click)="goToPage(currentPage - 1)">Previous</button>
+            </li>
+            <li
+                class="page-item"
+                *ngFor="let page of totalPagesArray"
+                [class.active]="page === currentPage"
+            >
+                <button class="page-link" (click)="goToPage(page)">{{ page + 1 }}</button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                <button class="page-link" (click)="goToPage(currentPage + 1)">Next</button>
+            </li>
+        </ul>
     </nav>
 
-    <div class="modal fade show" style="background: rgba(0, 0, 0, 0.7);" [ngClass]="{ 'd-block': showRoleModal }" tabindex="-1" role="dialog" *ngIf="showRoleModal">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title">Change User Role</h5>
-            <button type="button" class="btn-close" style="filter: invert(1);" (click)="closeRoleModal()"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Update Role for:</strong> {{ selectedUsername }}</p>
-            <label for="role">Select New Role</label>
-            <select id="role" [(ngModel)]="selectedRole" class="form-select">
-              <option value="SUPER_ADMIN">SUPER_ADMIN</option>
-              <option value="SIMPLE_USER">SIMPLE_USER</option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" (click)="confirmRoleChange()">Confirm</button>
-          </div>
+    <!-- Modal for Changing User Role -->
+    <div class="modal fade show" 
+         style="background: rgba(0, 0, 0, 0.7);" 
+         [ngClass]="{ 'd-block': showRoleModal }" 
+         tabindex="-1" 
+         role="dialog" 
+         *ngIf="showRoleModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Change User Role</h5>
+                <button type="button" class="btn-close" style="filter: invert(1);" (click)="closeRoleModal()"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Update Role for:</strong> {{ selectedUsername }}</p>
+                <label for="role">Select New Role</label>
+                <select id="role" [(ngModel)]="selectedRole" class="form-select">
+                    <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                    <option value="SIMPLE_USER">SIMPLE_USER</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="confirmRoleChange()">Confirm</button>
+            </div>
+            </div>
         </div>
-      </div>
     </div>
     
-
-    <div class="modal fade show" style="background: rgba(0, 0, 0, 0.7);" [ngClass]="{ 'd-block': showUserModal }" tabindex="-1" role="dialog" *ngIf="selectedUser">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title">User Info: {{ selectedUser.username }}</h5>
-            <button type="button" class="btn-close" style="filter: invert(1);" (click)="showUserModal = false"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>First Name:</strong> {{ selectedUser.firstname }}</p>
-            <p><strong>Last Name:</strong> {{ selectedUser.lastname }}</p>
-            <p><strong>Email:</strong> {{ selectedUser.email }}</p>
-            <p><strong>Phone:</strong> {{ selectedUser.phone }}</p>
-            <p><strong>VAT:</strong> {{ selectedUser.vat }}</p>
-            <p><strong>Date of Birth:</strong> {{ selectedUser.dateOfBirth | date:'dd-MM-yyyy' }}</p>
-            <p><strong>gender:</strong> {{ selectedUser.gender }}</p>
-            <p><strong>Created At:</strong> {{ selectedUser.createdAt }}</p>
-            <p><strong>Updated At:</strong> {{ selectedUser.updatedAt }}</p>
-            <p><strong>Status:</strong> {{ selectedUser.isActive ? 'Active' : 'Inactive' }}</p>
-            <p><strong>Role:</strong> {{ selectedUser.role }}</p>
-          </div>
-          <div class="modal-footer footer bg-primary" style="min-height: 50px;">
-          </div>
+    <!-- Modal for User Details -->
+    <div class="modal fade show" 
+         style="background: rgba(0, 0, 0, 0.7);" 
+         [ngClass]="{ 'd-block': showUserModal }" 
+         tabindex="-1" role="dialog" 
+         *ngIf="selectedUser">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">User Info: {{ selectedUser.username }}</h5>
+                    <button type="button" class="btn-close" style="filter: invert(1);" (click)="showUserModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>First Name:</strong> {{ selectedUser.firstname }}</p>
+                    <p><strong>Last Name:</strong> {{ selectedUser.lastname }}</p>
+                    <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+                    <p><strong>Phone:</strong> {{ selectedUser.phone }}</p>
+                    <p><strong>VAT:</strong> {{ selectedUser.vat }}</p>
+                    <p><strong>Date of Birth:</strong> {{ selectedUser.dateOfBirth | date:'dd-MM-yyyy' }}</p>
+                    <p><strong>gender:</strong> {{ selectedUser.gender }}</p>
+                    <p><strong>Created At:</strong> {{ selectedUser.createdAt }}</p>
+                    <p><strong>Updated At:</strong> {{ selectedUser.updatedAt }}</p>
+                    <p><strong>Status:</strong> {{ selectedUser.isActive ? 'Active' : 'Inactive' }}</p>
+                    <p><strong>Role:</strong> {{ selectedUser.role }}</p>
+                </div>
+                <div class="modal-footer footer bg-primary" style="min-height: 50px;"></div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   

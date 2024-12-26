@@ -4,34 +4,45 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
-  selector: 'app-side-bar-menu',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive],
-  templateUrl: './side-bar-menu.component.html',
-  styleUrl: './side-bar-menu.component.css'
+    selector: 'app-side-bar-menu',
+    standalone: true,
+    imports: [RouterLink, RouterLinkActive],
+    templateUrl: './side-bar-menu.component.html',
+    styleUrl: './side-bar-menu.component.css'
 })
 export class SideBarMenuComponent {
-  userService = inject(UserService); 
+  
+    // Inject UserService to access authentication and user role logic
+    userService = inject(UserService); 
 
-  menu: SideBarEntry[] = [];
+    // Menu items for the sidebar (filtered based on user state)
+    menu: SideBarEntry[] = [];
 
-  constructor() {
-    effect(() => {
-      this.initializeMenu();
-    });
-  }
+    constructor() {
+        effect(() => {
+            // Reactive effect - Runs on component initialization and tracks changes
+            this.initializeMenu();
+        });
+    }
 
-  initializeMenu(): void {
-    this.menu = [
-      { text: 'Search Cars', routerLink: 'search-cars', visible: this.userService.isAuthenticated() },
-      { text: 'Garage', routerLink: 'garage', visible: true },
-      { text: 'Entity Manager', routerLink: 'manage-entities', visible: this.userService.hasRole('SUPER_ADMIN') },
-    ].filter(entry => entry.visible);
+    /**
+     * Initializes the menu with visibility conditions.
+     * Filters entries based on authentication and role checks.
+     */
+    initializeMenu(): void {
+        this.menu = [
+            { text: 'Search Cars', routerLink: 'search-cars', visible: this.userService.isAuthenticated() },
+            { text: 'Garage', routerLink: 'garage', visible: true },
+            { text: 'Entity Manager', routerLink: 'manage-entities', visible: this.userService.hasRole('SUPER_ADMIN') },
+        ].filter(entry => entry.visible);
+    }
 
-  }
-
-  isAuthenticated(): boolean {
-    return this.userService.isAuthenticated();
-  }
+    /**
+     * Returns the user's authentication status.
+     * Used for conditional rendering in the template.
+     */
+    isAuthenticated(): boolean {
+        return this.userService.isAuthenticated();
+    }
 }
 

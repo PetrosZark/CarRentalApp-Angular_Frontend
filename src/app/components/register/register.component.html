@@ -1,14 +1,18 @@
 <h5 class="text-center">Register New User</h5>
 
+<!-- Show registration form if no attempt has been made -->
 @if (registrationStatus.message === 'Not attempted yet.') {
     <div class="d-flex justify-content-center mt-2 mb-2">    
         <form [formGroup]="userForm" class="d-flex flex-column w-50">
+            
+            <!-- Username Field with Validation -->
             <mat-form-field>
                 <mat-label for="username">Username</mat-label>
                 <input matInput type="text" formControlName="username">
                 <mat-error>Username is required and must be at least 6 characters long.</mat-error>
             </mat-form-field>
 
+            <!-- Password Field with Complex Validation -->
             <mat-form-field>
                 <mat-label for="password">Password</mat-label>
                 <input matInput type="password" formControlName="password">
@@ -17,6 +21,7 @@
                 </mat-error>
             </mat-form-field>
 
+            <!-- Confirm Password with Match Check -->
             <mat-form-field>
                 <mat-label for="confirmPassword">Confirm Password</mat-label>
                 <input matInput type="password" formControlName="confirmPassword">
@@ -27,36 +32,42 @@
                 }
             </mat-form-field>
 
+            <!-- First Name -->
             <mat-form-field>
                 <mat-label for="firstname">First Name</mat-label>
                 <input matInput type="text" formControlName="firstname">
                 <mat-error>First Name is required and must be at least 2 characters long.</mat-error>
             </mat-form-field>
 
+            <!-- Last Name -->
             <mat-form-field>
                 <mat-label for="lastname">Last Name</mat-label>
                 <input matInput type="text" formControlName="lastname">
                 <mat-error>Last Name is required and must be at least two characters long.</mat-error>
             </mat-form-field>
 
+            <!-- Email with Validation -->
             <mat-form-field>
                 <mat-label for="email">Email</mat-label>
                 <input matInput type="email" formControlName="email">
                 <mat-error>Email is missing or invalid.</mat-error>
             </mat-form-field>
 
+            <!-- VAT Field -->
             <mat-form-field>
                 <mat-label for="vat">Vat</mat-label>
                 <input matInput type="text" formControlName="vat">
                 <mat-error>Vat is required and must be 9 digits long.</mat-error>
             </mat-form-field>
 
+            <!-- Phone Number with Length Validation -->
             <mat-form-field>
                 <mat-label for="phone">Phone Number</mat-label>
                 <input matInput type="text" formControlName="phone">
                 <mat-error>Phone number is required and must be between 10 and 18 digits long.</mat-error>
             </mat-form-field>
 
+            <!-- Date of Birth with Range and Picker -->
             <mat-form-field>
                 <mat-label for="dateOfBirth">Date Of Birth</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [min]="minDate" [max]="maxDate">
@@ -66,6 +77,7 @@
                 <mat-error>Date of birth is required and user must be between 18 and 80 years old.</mat-error>
             </mat-form-field>
 
+            <!-- Gender Dropdown -->
             <mat-form-field>
                 <mat-label>Gender</mat-label>
                 <mat-select for="gender" formControlName="gender">
@@ -76,6 +88,7 @@
                 <mat-error>Gender is required.</mat-error>            
             </mat-form-field>
 
+            <!-- Submit Button (Disabled if form is invalid) -->
             <button 
                 mat-flat-button 
                 color="primary" 
@@ -87,6 +100,7 @@
         </form>
     </div>
 } @else {
+    <!-- Success Message and Login Redirect -->
     @if (registrationStatus.success) {
         <div class="d-flex flex-column justify-content-center align-items-center mt-2">
             <div class="alert alert-success w-75 text-center mx-auto" role = "alert" [innerHTML]="registrationStatus.message"></div>
@@ -99,6 +113,7 @@
             </button>
         </div>
     } @else {
+        <!-- Error Message and Retry Option -->
         <div class="d-flex flex-column justify-content-center align-items-center mt-2">
             <div class="alert alert-danger w-75 text-center mx-auto" role = "alert" [innerHTML]="registrationStatus.message"></div>
             <button 
@@ -110,5 +125,4 @@
             </button>
         </div>
     }
-
 }

@@ -1,5 +1,8 @@
 @if (isAuthenticated()) {
+    <!-- Display menu if the user is authenticated -->
     <div class="list-group">
+        
+        <!-- Loop through menu entries and dynamically render links -->
         @for (entry of menu; track entry) {
             <a class= "list-group-item list-group-item-action" 
             [routerLink] = "entry.routerLink"
@@ -7,5 +10,5 @@
             >{{entry.text}}</a>
         }
     </div>
-    }
+}
     

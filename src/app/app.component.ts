@@ -13,10 +13,16 @@ import { UserService } from './shared/services/user.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'carrentalapp';
+  title = 'carRentalApp';
 
+  // Inject UserService to manage authentication and user-related operations
   userService = inject(UserService);
 
+  /**
+   * Checks if the user is authenticated by delegating to UserService.
+   * This method is used to conditionally render parts of the UI (e.g., sidebar).
+   * @returns boolean - True if the user is authenticated, otherwise false
+   */
   isAuthenticated(): boolean {
     return this.userService.isAuthenticated();
   }

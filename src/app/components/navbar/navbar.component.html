@@ -1,20 +1,32 @@
 <nav class="container-fluid navbar navbar-dark bg-primary justify-content-between">
+    
+    <!-- Logo with navigation to home -->
     <a class="navbar-brand ms-3" role="button" routerLink="home">
         <img src="assets/images/logo.png" alt="CarRentalApp Logo" class="img-fluid mb-1" style="max-height: 25px;">
     </a>
+
+    <!-- Conditional rendering based on user authentication status -->
     @if(user()){
-        <span class="me-3 d-flex gap-2 text-light align-items-center">
+        <span class="me-3 d-flex gap-2 text-light align-items-center">            
+            <!-- Display user's full name -->
             {{user()?.firstname}} {{user()?.lastname}}
+            
+            <!-- Logout option triggers logout method -->
             <span role="button" class="cursor-pointer text-light" (click)="logout()">Logout</span>            
+            
+            <!-- Icon-based logout (alternative trigger) -->
             <mat-icon role="button" (click)="logout()">logout</mat-icon>
         </span>
 
-    } @else {
+    } @else {        
         <span class="me-3 d-flex gap-2 text-light align-items-center">
-            <span role="button" class="cursor-pointer text-light" routerLink="register">Register</span>      
-            <span role="button" class="cursor-pointer text-light" routerLink="login">Login</span>            
+
+            <!-- Register and Login links if no user is authenticated -->
+            <span role="button" class="cursor-pointer text-light" routerLink="register">Register</span> 
+            <span role="button" class="cursor-pointer text-light" routerLink="login">Login</span>  
+            
+            <!-- Icon-based login (alternative trigger) -->
             <mat-icon role="button" class="icon-link-hover" routerLink="login">login</mat-icon>
         </span>
-    }
-    
+    }   
 </nav>

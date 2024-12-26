@@ -44,7 +44,7 @@ src/
 │   └── app.config.ts             # App configuration
 │
 ├── assets/                       
-│   └── images/                   # Static assets
+│   └── images/                   # Static assets (logos, icons)
 │
 ├── index.html                    # Main entry point
 ├── main.ts                       # Bootstrap logic

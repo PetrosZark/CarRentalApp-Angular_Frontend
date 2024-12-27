@@ -51,7 +51,7 @@ export class UserService {
      * @returns Observable containing user data, role, and JWT token
      */
     loginUser(credentials: Credentials) {
-        return this.http.post<{firstname: string, lastname: string, role: string, token: string }>
+        return this.http.post<{id: string, username: string, firstname: string, lastname: string, role: string, token: string }>
             (`${API_URL}/authenticate`, credentials);
     }
 

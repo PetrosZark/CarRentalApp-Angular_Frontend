@@ -8,23 +8,23 @@ This project is a Car Rental Application developed with Angular (CLI 19.0.3) for
 
 ## 🎯 Project Overview
 The Car Rental App is designed to create a peer-to-peer car rental marketplace.
--Users can list their cars for rent, manage their availability, and update details through a personalized garage.
--Other users can browse and rent cars available in the system.
--Administrators have access to a restricted area to manage users, car data, and system configurations.
+- Users can list their cars for rent, manage their availability, and update details through a personalized garage.
+- Other users can browse and rent cars available in the system.
+- Administrators have access to a restricted area to manage users, car data, and system configurations.
 
 ## ✨ Key Features
--Garage Management
-  -Users can add their car(s) to a virtual garage.
-  -Upload car photos and manage car details (update, delete, or mark unavailable).
+- Garage Management
+  - Users can add their car(s) to a virtual garage.
+  - Upload car photos and manage car details (update, delete, or mark unavailable).
 
--Car Browsing & Booking
-  -View all available cars listed by other users.
-  -Search and filter cars by brand, model, or city.
+- Car Browsing & Booking
+  - View all available cars listed by other users.
+  - Search and filter cars by brand, model, or city.
 
 -Admin Panel
-  -Admins can:
-    -Manage Users – Update roles, deactivate accounts, or delete users.
-    -Manage Car Data – Add car brands, models, and cities.
+ - Admins can:
+   - Manage Users – Update roles, deactivate accounts, or delete users.
+   - Manage Car Data – Add car brands, models, and cities.
 
 ---
 
@@ -60,10 +60,10 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
 ---
 
 ## 🔧 Technology Stack
--Frontend: Angular 19.0.3 (Dynamic UI, Routing, and Component-based architecture)
--Backend: Spring Boot (REST API)
--Database: PostgreSQL or MySQL (configurable)
--Authentication: JWT (JSON Web Tokens) for secure login and role management
+- Frontend: Angular 19.0.3 (Dynamic UI, Routing, and Component-based architecture)
+- Backend: Spring Boot (REST API)
+- Database: PostgreSQL or MySQL (configurable)
+- Authentication: JWT (JSON Web Tokens) for secure login and role management
 
 ## 🚀 Getting Started
 

@@ -17,16 +17,14 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
   - Users can add their car(s) to a virtual garage.
   - Upload car photos and manage car details (update, delete, or mark unavailable).
 
-- Car Browsing & Booking
+- Car Browsing
   - View all available cars listed by other users.
-  - Search and filter cars by brand, model, or city.
+  - Search and filter cars by brand or city.
 
 -Admin Panel
  - Admins can:
    - Manage Users – Update roles, deactivate accounts, or delete users.
    - Manage Car Data – Add car brands, models, and cities.
-
----
 
 ## 🖥️ Screenshots
 
@@ -34,24 +32,21 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
   <tr>
     <td><img src="./src/assets/screenshots/Welcome.png" alt="Welcome Screen" width="400"></td>
     <td><img src="src/assets/screenshots/Register.png" alt="Register Screen" width="400"></td>
-  </tr>
-  <tr>
     <td><img src="src/assets/screenshots/Login.png" alt="Login Screen" width="400"></td>
-    <td><img src="src/assets/screenshots/Home.png" alt="Home Screen" width="400"></td>
+
   </tr>
   <tr>
+    <td><img src="src/assets/screenshots/Home.png" alt="Home Screen" width="400"></td>
     <td><img src="src/assets/screenshots/Search2.png" alt="Search Screen" width="400"></td>
     <td><img src="src/assets/screenshots/Garage.png" alt="Garage Screen" width="400"></td>
   </tr>
   <tr>
     <td><img src="src/assets/screenshots/Entity_Manager.png" alt="Entity Manager" width="400"></td>
     <td><img src="src/assets/screenshots/Users.png" alt="Users Screen" width="400"></td>
-  </tr>
-  <tr>
     <td><img src="src/assets/screenshots/Brands.png" alt="Brands" width="400"></td>
-    <td><img src="src/assets/screenshots/Models.png" alt="Models" width="400"></td>
   </tr>
   <tr>
+    <td><img src="src/assets/screenshots/Models.png" alt="Models" width="400"></td>
     <td><img src="src/assets/screenshots/Cities.png" alt="Cities" width="400"></td>
     <td><img src="src/assets/screenshots/Garage2.png" alt="Garage View 2" width="400"></td>
   </tr>

@@ -29,31 +29,34 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
 ---
 
 ## 🖥️ Screenshots
+
 <table>
   <tr>
-    <td><img src='src/assets/screenshots/Welcome.png alt='Image 1'></td>
-    <td><img src='src/assets/screenshots/Register.png alt='Image 2'></td>
+    <td><img src="./src/assets/screenshots/Welcome.png" alt="Welcome Screen" width="400"></td>
+    <td><img src="src/assets/screenshots/Register.png" alt="Register Screen" width="400"></td>
   </tr>
   <tr>
-    <td><img src='src/assets/screenshots/Login.png alt='Image 3'></td>
-    <td><img src='src/assets/screenshots/Home.png alt='Image 4'></td>
+    <td><img src="src/assets/screenshots/Login.png" alt="Login Screen" width="400"></td>
+    <td><img src="src/assets/screenshots/Home.png" alt="Home Screen" width="400"></td>
   </tr>
   <tr>
-    <td><img src='src/assets/screenshots/Search2.png alt='Image 5'></td>
-    <td><img src='src/assets/screenshots/Garage.png alt='Image 6'></td>
+    <td><img src="src/assets/screenshots/Search2.png" alt="Search Screen" width="400"></td>
+    <td><img src="src/assets/screenshots/Garage.png" alt="Garage Screen" width="400"></td>
   </tr>
   <tr>
-    <td><img src='src/assets/screenshots/Entity_Manager.png alt='Image 7'></td>
-    <td><img src='src/assets/screenshots/Users.png alt='Image 8'></td>
+    <td><img src="src/assets/screenshots/Entity_Manager.png" alt="Entity Manager" width="400"></td>
+    <td><img src="src/assets/screenshots/Users.png" alt="Users Screen" width="400"></td>
   </tr>
   <tr>
-    <td><img src='src/assets/screenshots/Brands.png alt='Image 9'></td>
-    <td><img src='src/assets/screenshots/Models.png alt='Image 10'></td>
+    <td><img src="src/assets/screenshots/Brands.png" alt="Brands" width="400"></td>
+    <td><img src="src/assets/screenshots/Models.png" alt="Models" width="400"></td>
   </tr>
   <tr>
-    <td><img src='src/assets/screenshots/Cities.png alt='Image 9'></td>
-    <td><img src='src/assets/screenshots/Garage2.png alt='Image 10'></td>
+    <td><img src="src/assets/screenshots/Cities.png" alt="Cities" width="400"></td>
+    <td><img src="src/assets/screenshots/Garage2.png" alt="Garage View 2" width="400"></td>
   </tr>
+</table>
+
 ---
 
 ## 🔧 Technology Stack

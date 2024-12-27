@@ -21,6 +21,13 @@ export class GarageComponent implements OnInit {
     // Car selected for updating
     selectedCar: CarReadOnly | null = null;
 
+    // Selected car for image display modal
+    selectedCarImage: CarReadOnly | null = null;
+
+    // Image and associated car
+    imageToUpload: File | null = null;
+    carIdForUpload: string | null = null;
+
     // Dropdown lists for form inputs
     brands: { id: number; brand: string }[] = [];
     models: { id: number; carmodel: string; brand: string }[] = [];
@@ -137,7 +144,7 @@ export class GarageComponent implements OnInit {
         this.garageService.addCar(this.newCar).subscribe({
             next: (response) => {
                 console.log('Car added successfully:', response);
-                this.fetchUserCars();
+                this.fetchUserCars(this.currentPage);
                 this.newCar = this.initializeNewCar();
                 this.handleSuccess('Car added successfully');
             },
@@ -169,7 +176,7 @@ export class GarageComponent implements OnInit {
             this.garageService.updateCar(this.selectedCar.id, updatePayload).subscribe({
                 next: (response) => {
                     console.log('Car updated successfully:', response);
-                    this.fetchUserCars();
+                    this.fetchUserCars(this.currentPage);
                     this.selectedCar = null;
                     this.handleSuccess('Car updated successfully');
                 },
@@ -189,7 +196,7 @@ export class GarageComponent implements OnInit {
         this.garageService.deleteCar(id).subscribe({
         next: (response) => {
             console.log('Car deleted successfully:', response);
-            this.fetchUserCars();
+            this.fetchUserCars(this.currentPage);
             this.handleSuccess('Car deleted successfully');
             },
             error: (err) => {
@@ -235,4 +242,92 @@ export class GarageComponent implements OnInit {
 
         setTimeout(() => (this.showErrorPopup = false), 10000); 
     }  
+
+    /**
+     * Opens a file input dialog to upload an image for the specified car.
+     * 
+     * Dynamically creates a hidden file input element and simulates a click to trigger the file selection.
+     * Passes the selected file to the `onFileSelected` method for processing.
+     * 
+     * @param car - The car associated with the image upload.
+     */
+    triggerFileInput(car: CarReadOnly): void {
+        // Dynamically create a file input element
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';  
+        
+        // Handle file selection and pass it to the appropriate handler
+        fileInput.onchange = (event: any) => this.onFileSelected(event, car);
+        
+        // Simulate a click on the hidden file input to trigger file selection
+        fileInput.click();
+    }
+    
+    /**
+     * Handles the file input change event and uploads the selected image.
+     * @param event - The file input change event
+     * @param car - The car associated with the image upload
+     */
+    onFileSelected(event: Event, car: CarReadOnly): void {
+        const target = event.target as HTMLInputElement;
+        if (target.files && target.files.length > 0) {
+            this.imageToUpload = target.files[0];
+            this.carIdForUpload = car.id;
+    
+            this.uploadCarImage();
+        }
+    }
+    
+    /**
+     * Uploads selected image to the backend.
+     */
+    uploadCarImage(): void {
+        if (this.imageToUpload && this.carIdForUpload) {
+            this.garageService.uploadCarImage(this.carIdForUpload, this.imageToUpload).subscribe({
+                next: () => {
+                    this.handleSuccess('Image uploaded successfully');
+                    this.fetchUserCars(this.currentPage);  
+                    this.imageToUpload = null;
+                    this.carIdForUpload = null;
+                },
+                error: (err) => {
+                    const errorMessage = err.error?.description || err.error?.message || 'Failed to upload image';
+                    this.handleError(errorMessage);
+                },
+            });
+        }
+    }
+    
+    /**
+     * Deletes an image for a specific car.
+     */
+    deleteCarImage(carId: string): void {
+        this.garageService.deleteCarImage(carId).subscribe({
+            next: () => {
+                this.handleSuccess('Image deleted successfully');
+                this.fetchUserCars(this.currentPage); 
+            },
+            error: (err) => {
+                const errorMessage = err.error?.description || err.error?.message || 'Failed to delete image';
+                this.handleError(errorMessage);
+            },
+        });
+    }
+
+    /**
+     * Opens a modal to display the selected car's image.
+     * @param car - The car whose image is to be viewed
+     */
+    openImageModal(car: CarReadOnly): void {
+        this.selectedCarImage = car;
+    }
+
+    
+    /**
+     * Closes the image modal by resetting the selected image.
+     */
+    closeImageModal(): void {
+        this.selectedCarImage = null;
+    }
 }

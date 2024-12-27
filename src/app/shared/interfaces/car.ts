@@ -23,6 +23,7 @@ export interface CarReadOnly {
   userPhone: string;    // Contact phone number of the car owner/user
   userEmail: string;    // Contact email of the car owner/user
   available: boolean;   // Availability status (true = available, false = not available)
+  imagePath?: string;   // Car's photo path (nullable)
 }
 
 // Interface for updating car details in the database

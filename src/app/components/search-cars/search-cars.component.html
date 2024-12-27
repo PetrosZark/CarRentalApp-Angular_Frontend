@@ -11,6 +11,7 @@
                 [(ngModel)]="selectedBrand"
             >
                 <option value="" disabled >Select a brand</option>
+                <!-- Populate brands dynamically -->
                 <option *ngFor="let brand of brands" [value]="brand.brand">{{ brand.brand }}</option>
             </select>
         </div>
@@ -23,6 +24,7 @@
                 [(ngModel)]="selectedCity"
             >
                 <option value="" disabled>Select a city</option>
+                <!-- Populate cities dynamically -->
                 <option *ngFor="let city of cities" [value]="city.city">{{ city.city }}</option>
             </select>
         </div>
@@ -35,6 +37,8 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th>Image</th>
+
                 <th>Brand</th>
                 <th>Model</th>
                 <th>License Plate</th>
@@ -47,6 +51,27 @@
         <tbody>
             <!-- Render each car as a row with action buttons -->
             <tr *ngFor="let car of cars">
+
+                <!-- Display car image if available -->
+                <td class="text-center">
+                    <img *ngIf="car.imagePath" 
+                        [src]="'http://localhost:8080' + car.imagePath" 
+                        alt="Car Image" 
+                        width="100" 
+                        height="100" 
+                        class="rounded img-thumbnail"
+                        style="cursor: pointer !important;"
+
+                        (click)="openImageModal(car)"
+                        />
+                        
+    
+                    <!-- Placeholder if No Image -->
+                    <div *ngIf="!car.imagePath">
+                        <span>No Image</span>
+                    </div>
+                </td>
+
                 <td>{{ car.brand }}</td>
                 <td>{{ car.carmodel }}</td>
                 <td>{{ car.licensePlate }}</td>
@@ -54,7 +79,7 @@
                 <td>{{ car.city }}</td>
                 <td>{{ car.year }}</td>
                 <td class="text-center">
-                    <button class="btn btn-success btn-sm" (click)="contactOwner(car)">Contact Owner</button>
+                    <button class="btn btn-primary btn-sm" (click)="contactOwner(car)">Contact Owner</button>
                 </td>
             </tr>
         </tbody>
@@ -97,10 +122,39 @@
                 <button type="button" class="btn-close" style="filter: invert(1);" (click)="closePopup()"></button>
             </div>
             <div class="modal-body">
+                <!-- Display owner's phone and email if available -->
                 <p><strong>Phone:</strong> {{ selectedCar.userPhone || 'Not available' }}</p>
                 <p><strong>Email:</strong> {{ selectedCar.userEmail || 'Not available' }}</p>
             </div>
-            <div class="modal-footer bg-primary" style="min-height: 50px;"></div>
+            <div class="modal-footer bg-primary" style="min-height: 25px;"></div>
         </div>
     </div>
 </div>
+
+<!-- Modal to display selected car image -->
+<div class="modal fade show" 
+     style="background: rgba(0, 0, 0, 0.7);" 
+     [ngClass]="{ 'd-block': selectedCarImage }" 
+     tabindex="-1" 
+     role="dialog" 
+     *ngIf="selectedCarImage">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    {{ selectedCarImage.brand }} - {{ selectedCarImage.carmodel }}
+                </h5>
+                <button type="button" class="btn-close" style="filter: invert(1);" (click)="closeImageModal()"></button>
+            </div>
+            <div class="modal-body text-center">
+                <!-- Display full-size car image in modal -->
+                <img [src]="'http://localhost:8080' + selectedCarImage.imagePath" 
+                     alt="Car Image" 
+                     class="img-fluid rounded" />
+            </div>
+            <div class="modal-footer bg-primary"></div>
+        </div>
+    </div>
+</div>
+

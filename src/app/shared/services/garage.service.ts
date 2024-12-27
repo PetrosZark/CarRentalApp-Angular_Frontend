@@ -100,4 +100,30 @@ export class GarageService {
         const headers = this.authService.getAuthHeaders();
         return this.http.get<{ id: number; carmodel: string; brand: string }[]>(`${API_URL}/home/cars/models`, { headers });
     }
+
+    /**
+     * Uploads an image for a specific car.
+     * 
+     * @param carId - The ID of the car to upload the image for.
+     * @param file - The image file to upload.
+     * @returns Observable<any> - Observable for the HTTP response.
+     */
+    uploadCarImage(carId: string, file: File): Observable<any> {
+        const headers = this.authService.getAuthHeaders();
+        const formData = new FormData();
+        formData.append('file', file);
+    
+        return this.http.post(`${API_URL}/home/garage/${carId}/upload-image`, formData, { headers });
+    }
+    
+    /**
+     * Deletes the image of a specific car.
+     * 
+     * @param carId - The ID of the car whose image will be deleted.
+     * @returns Observable<any> - Observable for the HTTP response.
+     */
+    deleteCarImage(carId: string): Observable<any> {
+        const headers = this.authService.getAuthHeaders();
+        return this.http.delete(`${API_URL}/home/garage/${carId}/delete-image`, { headers });
+    }
 }

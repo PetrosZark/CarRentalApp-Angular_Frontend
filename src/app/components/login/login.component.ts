@@ -49,7 +49,7 @@ export class LoginComponent {
 		// Handle login request and manage response
 		this.userService.loginUser(credentials).subscribe({
 			next: (response) => {
-				const {firstname, lastname, role, token} = response;
+				const {id, username, firstname, lastname, role, token} = response;
 				
 				// Store JWT token and user info in localStorage
 				localStorage.setItem('authToken', token);
@@ -57,6 +57,8 @@ export class LoginComponent {
 
 				// Update global user state
 				this.userService.user.set({
+					id,
+					username,
 					firstname,
 					lastname,
 					role

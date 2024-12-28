@@ -4,13 +4,13 @@
 
 ## Description
 
-This project is a Car Rental Application developed with Angular (CLI 19.0.3) for the frontend and Spring Boot for the [backend](https:///README.md). It showcases modern web development practices, utilizing modular design, routing, services, and a component-based architecture.
+This project is a Car Rental Application developed with Angular (CLI 19.0.3) for the frontend and Spring Boot for the backend. It showcases modern web development practices, utilizing modular design, routing, services, and a component-based architecture.
 
 ## 🎯 Project Overview
 The Car Rental App is designed to create a peer-to-peer car rental marketplace.
 - Users can list their cars for rent, manage their availability, and update details through a personalized garage.
 - Other users can browse and rent cars available in the system.
-- Administrators have access to a restricted area to manage users, car data, and system configurations.
+- Administrators have access to a restricted area to manage users and car data.
 
 ## ✨ Key Features
 - Garage Management
@@ -21,19 +21,19 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
   - View all available cars listed by other users.
   - Search and filter cars by brand or city.
 
--Admin Panel
+- Admin Panel
  - Admins can:
    - Manage Users – Update roles, deactivate accounts, or delete users.
    - Manage Car Data – Add car brands, models, and cities.
 
 ## 🖥️ Screenshots
+Below are screenshots of the app's key features and pages.
 
 <table>
   <tr>
     <td><img src="./src/assets/screenshots/Welcome.png" alt="Welcome Screen" width="400"></td>
     <td><img src="src/assets/screenshots/Register.png" alt="Register Screen" width="400"></td>
     <td><img src="src/assets/screenshots/Login.png" alt="Login Screen" width="400"></td>
-
   </tr>
   <tr>
     <td><img src="src/assets/screenshots/Home.png" alt="Home Screen" width="400"></td>
@@ -55,42 +55,49 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
 ---
 
 ## 🔧 Technology Stack
-- Frontend: Angular 19.0.3 (Dynamic UI, Routing, and Component-based architecture)
-- Backend: Spring Boot (REST API)
-- Database: PostgreSQL or MySQL (configurable)
-- Authentication: JWT (JSON Web Tokens) for secure login and role management
 
+- **Frontend**: Angular 19.0.3 (TypeScript (5.7.2), Bootstrap for responsive UI)  
+- **Backend**: Spring Boot (REST API, Hibernate ORM)  
+- **Build Tools**: Gradle (for backend builds)  
+- **Database**: MySQL
+- **Authentication**: JWT (JSON Web Tokens) for secure login and role management  
+- **Code Quality**: Prettier (consistent code formatting)  
+
+---
 ## 🚀 Getting Started
 
 ### Prerequisites
 Ensure you have the following installed:
-- **Node.js (v19 or higher)** – [Download Node.js](https://nodejs.org/)
+- **Node.js (v20 or higher)** – [Download Node.js](https://nodejs.org/)
 - **Angular CLI** – Install via:
 ```bash
 npm install -g @angular/cli
 ```
 
----
-
 ### ⚙️ Development Server
+
 Run the following command to start the development server:
 ```bash
 ng serve
 ```
 Navigate to [http://localhost:4200/](http://localhost:4200/). The application will automatically reload if you change any of the source files.
 
----
-
 ### 🛠️ Code Scaffolding
+
 Generate new components, services, or other Angular elements using the Angular CLI:
 ```bash
 ng generate component component-name
 ng generate directive|pipe|service|class|guard|interface|enum|module
 ```
 
----
-
 ### 🏗️ Building the Project
+
+Navigate to the Project Directory:
+
+```bash
+cd carrentalapp
+```
+
 To build the project, run:
 ```bash
 ng build
@@ -153,7 +160,7 @@ For questions or feedback, feel free to reach out:
 ---
 
 ### 📦 Example Data
-- **Admin User**: SuperAdmin / Sa123456!
+- **Admin User**: username: SuperAdmin / password: Sa123456!
 - **API URL**: http://localhost:8080/api
 
 ---

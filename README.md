@@ -1,10 +1,11 @@
-# 🚗 Car Rental App (Angular)
+# 🚗 Car Rental App - Frontend (Angular) 
 
-## A Coding Factory @ AUEB Final Project. Angular - Typescript - Car Rental Application frontend.
+## A [Coding Factory](https://codingfactory.aueb.gr/) @ [AUEB](https://www.aueb.gr/) Final Project. Angular - Typescript - Car Rental Application frontend.
 
-## Description
+## Overview
 
-This project is a Car Rental Application developed with Angular (CLI 19.0.3) for the frontend and Spring Boot for the backend. It showcases modern web development practices, utilizing modular design, routing, services, and a component-based architecture.
+The Car Rental App frontend is an Angular application that works alongside a Spring Boot backend to provide a seamless car rental experience.  
+It allows users to manage cars, view listings, and handle administrative tasks through an intuitive, responsive UI.
 
 ## 🎯 Project Overview
 The Car Rental App is designed to create a peer-to-peer car rental marketplace.
@@ -13,21 +14,61 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
 - Administrators have access to a restricted area to manage users and car data.
 
 ## ✨ Key Features
-- Garage Management
+- **Garage Management**
   - Users can add their car(s) to a virtual garage.
   - Upload car photos and manage car details (update, delete, or mark unavailable).
 
-- Car Browsing
+- **Car Browsing**
   - View all available cars listed by other users.
   - Search and filter cars by brand or city.
 
-- Admin Panel
- - Admins can:
-   - Manage Users – Update roles, deactivate accounts, or delete users.
-   - Manage Car Data – Add car brands, models, and cities.
+- **Admin Panel**
+  - Admins can manage Users – Update roles, deactivate accounts, or delete users.
+  - Manage Car Data – Add car brands, models, and cities.
+
+- **Secure Authentication**  
+  - JWT-based login and session management.  
+  - Role-based access control (User/Admin).    
 
 ## 🖥️ Screenshots
 Below are screenshots of the app's key features and pages.
+
+---
+
+## 🔧 Technologies Used
+
+- **Angular 19.0.3**  
+- **TypeScript 5.7.2**  
+- **Bootstrap** (Responsive UI)  
+- **Spring Boot (Backend)**  
+- **MySQL**  
+- **JWT** (Authentication)  
+- **Node.js** (Runtime environment)  
+- **Prettier** (Code formatting)   
+
+---
+
+## 📂 Project Structure
+```
+src/
+├── app/                          # Main Angular application
+│   ├── components/               # UI components
+│   ├── shared/                   # Shared logic (guards, interfaces, services)
+│   ├── app.component.ts          # Root component
+│   ├── app.routes.ts             # App routing
+│   └── app.config.ts             # App configuration
+│
+├── assets/                        
+│   └── images/                   # Static assets (logos, icons)
+│
+├── index.html                    # Main entry point
+├── main.ts                       # Bootstrap logic
+└── styles.css                    # Global styles
+```
+
+---
+
+### 🖼️ Screenshots
 
 <table>
   <tr>
@@ -54,17 +95,7 @@ Below are screenshots of the app's key features and pages.
 
 ---
 
-## 🔧 Technology Stack
-
-- **Frontend**: Angular 19.0.3 (TypeScript (5.7.2), Bootstrap for responsive UI)  
-- **Backend**: Spring Boot (REST API, Hibernate ORM)  
-- **Build Tools**: Gradle (for backend builds)  
-- **Database**: MySQL
-- **Authentication**: JWT (JSON Web Tokens) for secure login and role management  
-- **Code Quality**: Prettier (consistent code formatting)  
-
----
-## 🚀 Getting Started
+## ⚙️ Installation and Setup
 
 ### Prerequisites
 Ensure you have the following installed:
@@ -73,8 +104,12 @@ Ensure you have the following installed:
 ```bash
 npm install -g @angular/cli
 ```
+### Clone the Repository
+```bash
+git clone https://github.com/PetrosZark/CarRentalApp-Angular_Frontend.git
+```
 
-### ⚙️ Development Server
+### 🚀 Running the Application
 
 Run the following command to start the development server:
 ```bash
@@ -92,39 +127,27 @@ ng generate directive|pipe|service|class|guard|interface|enum|module
 
 ### 🏗️ Building the Project
 
-Navigate to the Project Directory:
-
-```bash
-cd carrentalapp
-```
-
-To build the project, run:
+To build the project for development:
 ```bash
 ng build
 ```
+
+For a production build:
+```bash
+ng build --prod
+``` 
+
 The build artifacts will be stored in the `dist/` directory.
 
----
+### 🛡️ API Configuration
 
-## 📂 Project Structure
+To connect the frontend with the backend API, modify the environment.ts file:
+```bash
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-production-url/api'
+};
 ```
-src/
-├── app/                          # Main Angular application
-│   ├── components/               # UI components
-│   ├── shared/                   # Shared logic (guards, interfaces, services)
-│   ├── app.component.ts          # Root component
-│   ├── app.routes.ts             # App routing
-│   └── app.config.ts             # App configuration
-│
-├── assets/                        
-│   └── images/                   # Static assets (logos, icons)
-│
-├── index.html                    # Main entry point
-├── main.ts                       # Bootstrap logic
-└── styles.css                    # Global styles
-```
-
----
 
 ## 🌐 Deployment
 
@@ -133,22 +156,52 @@ To deploy the application, follow these steps:
 ```bash
 ng build --prod
 ```
-2. Deploy the contents of the `dist/` folder to your preferred web server or hosting platform (e.g., Netlify, Vercel, AWS S3).
+2. Deploy the contents of the `dist/` folder to your preferred web server or hosting platform, or use docker
+to containerize the application for easy deployment across environments.
 
-Example (Netlify):
+### 🐳 Docker Deployment
+1. Build the Angular Application for Development or Production
+Before creating the Docker image, ensure the Angular app is built for production. Run the following command:
 ```bash
-netlify deploy --prod
+For Development:
+
+ng build
+
+For Production: 
+
+ng build --prod
 ```
 
----
+2. Create a Dockerfile in the root of the project:
+```bash
+# Use Nginx to serve static files
+FROM nginx:alpine
 
-## 📄 Environment Configuration
-Set up environment variables for different stages (development, production). Modify files in:
+# Set working directory
+WORKDIR /usr/share/nginx/html
+
+# Remove default Nginx static files
+RUN rm -rf ./*
+
+# Copy Angular build files to Nginx directory
+COPY dist/carrentalapp/browser .
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
 ```
-src/environments/
-├── environment.ts                # Development settings
-└── environment.prod.ts           # Production settings
+
+3. Build the Docker Image
+```bash
+docker build -t carrentalapp-frontend .
 ```
+4. Run the Container
+```bash
+docker run -p 80:80 carrentalapp-frontend
+```
+The application will be available at http://localhost.
 
 ---
 

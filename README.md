@@ -149,6 +149,7 @@ export const environment = {
   apiUrl: 'https://your-production-url/api'
 };
 ```
+---
 
 ## 🌐 Deployment
 

@@ -30,8 +30,6 @@ The Car Rental App is designed to create a peer-to-peer car rental marketplace.
   - JWT-based login and session management.  
   - Role-based access control (User/Admin).    
 
-## 🖥️ Screenshots
-Below are screenshots of the app's key features and pages.
 
 ---
 
@@ -68,7 +66,8 @@ src/
 
 ---
 
-### 🖼️ Screenshots
+## 🖥️ Screenshots
+Below are screenshots of the app's key features and pages.
 
 <table>
   <tr>
@@ -108,6 +107,7 @@ npm install -g @angular/cli
 ```bash
 git clone https://github.com/PetrosZark/CarRentalApp-Angular_Frontend.git
 ```
+---
 
 ### 🚀 Running the Application
 
@@ -124,6 +124,7 @@ Generate new components, services, or other Angular elements using the Angular C
 ng generate component component-name
 ng generate directive|pipe|service|class|guard|interface|enum|module
 ```
+--- 
 
 ### 🏗️ Building the Project
 
@@ -162,13 +163,13 @@ to containerize the application for easy deployment across environments.
 ### 🐳 Docker Deployment
 1. Build the Angular Application for Development or Production
 Before creating the Docker image, ensure the Angular app is built for production. Run the following command:
-```bash
+
 For Development:
-
+```bash
 ng build
-
+```
 For Production: 
-
+```bash
 ng build --prod
 ```
 

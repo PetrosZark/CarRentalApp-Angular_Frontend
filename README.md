@@ -4,7 +4,8 @@
 
 ## Overview
 
-The Car Rental App frontend is an Angular application that works alongside a Spring Boot backend to provide a seamless car rental experience.  
+The Car Rental App frontend is an Angular application that works alongside a [Spring Boot backend](https://github.com/PetrosZark/CarRentalApp-Java_Backend) 
+to provide a seamless car rental experience.  
 It allows users to manage cars, view listings, and handle administrative tasks through an intuitive, responsive UI.
 
 ## 🎯 Project Overview

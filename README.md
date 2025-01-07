@@ -207,16 +207,3 @@ docker run -p 80:80 carrentalapp-frontend
 The application will be available at http://localhost.
 
 ---
-
-## 📧 Contact
-For questions or feedback, feel free to reach out:
-- **Name**: Zarkadis Petros
-- **Email**: petros.zark@hotmail.com
-
----
-
-### 📦 Example Data
-- **Admin User**: username: SuperAdmin / password: Sa123456!
-- **API URL**: http://localhost:8080/api
-
----
